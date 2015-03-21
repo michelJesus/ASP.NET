@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Cadastro de produto</title>
 
-    <link type="text/css" href="~/Content/themes/default/easyui.css" rel="stylesheet" />
-    <link type="text/css" href="~/Content/themes/icon.css" rel="stylesheet" />
+    <!-- link type="text/css" href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link type="text/css" href="~/Content/themes/icon.css" rel="stylesheet" / -->
 
     <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script>
+    <!-- script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script -->
 
     <style>
         label {
@@ -19,8 +19,8 @@
 
 </head>
 <body>
-
-    <div class="easyui-accordion" style="width:500px;height:300px;">
+    
+    <!-- div class="easyui-accordion" style="width:500px;height:300px;">
         
         <div title="Incluir"  style="overflow:auto;padding:10px;">
                 <label>Nome: </label>
@@ -38,18 +38,27 @@
             <form action="/" method="post">
                 <input type="button" value="Excluir" />
             </form>
-        </div>
+        </div> 
+    </div -->
 
-    </div>
+    <label>Nome: </label>
+    <input type="text" id="Nome" />
+    <input type="button" value="Enviar" onclick="incluir()" />
+
+    <div id="div" class="div"></div>
 
     <script>
         function incluir() {
             $.post("/Home/Create", {
                 Nome: $("#Nome").val()
             }).done(function (data) {
-                alert("Json retona: " + data);
 
-                //array.forEach(callback[, thisArg])
+                $.each(data, function (index, data) {
+                    $('#div').append('<p>' + data.Nome + '</p>');
+                    //console.log(data);
+                });
+                
+                //alert("Json retona: " + data);
             });
         }
     </script>
