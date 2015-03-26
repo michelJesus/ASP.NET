@@ -31,6 +31,23 @@ namespace CadastroDeProduto.Controllers
 
             List<Produto> lista = banco.Produtos.ToList();
 
+            return Lista();
+        }
+
+        [HttpPost]
+        public JsonResult Excluir ()
+        {
+            var produtoID = Request.Form["id"];
+            Produto produto = banco.Produtos.Find(int.Parse(produtoID));
+            banco.Entry(produto).State = System.Data.Entity.EntityState.Deleted;
+            banco.SaveChanges();
+
+            return Lista();
+            
+        }
+
+        public JsonResult Lista () {
+            List<Produto> lista = banco.Produtos.ToList();
             return Json(lista);
         }
     }

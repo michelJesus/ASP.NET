@@ -4,48 +4,35 @@
     <meta charset="UTF-8">
     <title>Cadastro de produto</title>
 
-    <!-- link type="text/css" href="~/Content/themes/default/easyui.css" rel="stylesheet" />
-    <link type="text/css" href="~/Content/themes/icon.css" rel="stylesheet" / -->
-
     <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
-    <!-- script type="text/javascript" src="~/Scripts/jquery.easyui.min.js"></script -->
 
     <style>
+        div {
+            padding: 20px;
+        }
         label {
             font-family: Arial;
             font-size: 16px;
         }
+        table, th, td {
+		    border: 1px solid #eee;
+		    border-collapse: collapse;
+		}
+		th,td {
+		    padding: 15px;
+		}
     </style>
 
 </head>
 <body>
-    
-    <!-- div class="easyui-accordion" style="width:500px;height:300px;">
-        
-        <div title="Incluir"  style="overflow:auto;padding:10px;">
-                <label>Nome: </label>
-                <input type="text" id="Nome" />
-                <input type="button" value="Enviar" onclick="incluir()" />
-        </div>
-
-        <div title="Editar" style="overflow:auto;padding:10px;">
-            <form action="/" method="post">
-                <input type="button" value="Atualizar" />
-            </form>
-        </div>
-
-        <div title="Excluir" style="overflow:auto;padding:10px;">
-            <form action="/" method="post">
-                <input type="button" value="Excluir" />
-            </form>
-        </div> 
-    </div -->
 
     <label>Nome: </label>
     <input type="text" id="Nome" />
     <input type="button" value="Enviar" onclick="incluir()" />
 
-    <div id="div" class="div"></div>
+    <div class="div">
+        <table id="table"></table>
+    </div>
 
     <script>
         function incluir() {
@@ -53,13 +40,34 @@
                 Nome: $("#Nome").val()
             }).done(function (data) {
 
+                alert("Salvo com sucesso!");
+
                 $.each(data, function (index, data) {
-                    $('#div').append('<p>' + data.Nome + '</p>');
+                    $('#table').append('<tr><td>' + data.Nome + '</td><td><input type="button" value="Editar" onclick="Editar()"/></td><td><input type="button" value="Excluir" onclick="Excluir()"/></td></tr></table>');
                     //console.log(data);
                 });
+
+                limparCampos();
                 
                 //alert("Json retona: " + data);
             });
+        }
+
+        function Excluir(produtoID) {
+            var confirmado = confirm("Confirma a exclusão do Produto?");
+            if (confirmado == true) {
+                $.post(
+                   '/Home/Excluir',
+                   { id: produtoID }
+                ).done(function (produtos) {
+                    limparCampos();
+                    listarProdutos(produtos);
+                });
+            }
+        }
+
+        function limparCampos() {
+            $('input[name="Nome"]').val('');
         }
     </script>
 
