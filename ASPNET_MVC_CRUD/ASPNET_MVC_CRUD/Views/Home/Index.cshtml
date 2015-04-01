@@ -1,0 +1,40 @@
+﻿@model List<ASPNET_MVC_CRUD.Models.Veiculo>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Cadastro de Veículos</h1>
+    <a href="/Home/Incluir">Incluir veículo...</a><br />
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Foto</th>
+                <th>Financiado?</th>  
+                <th>Comandos</th>  
+            </tr>
+            @foreach (var veiculo in Model)
+            {
+                <tr>
+                    <td>@veiculo.VeiculoID</td>
+                    <td>@veiculo.Modelo</td>
+                    <td>@veiculo.Marca</td>
+                    <td>@veiculo.UrlFoto</td>
+                    <td>@veiculo.Financiado</td>
+                    <td>
+                        <a href="/Home/Editar/@veiculo.VeiculoID">Editar</a>
+                        <a href="/Home/Excluir/@veiculo.VeiculoID">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

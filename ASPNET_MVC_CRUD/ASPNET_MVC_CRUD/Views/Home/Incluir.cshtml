@@ -1,0 +1,30 @@
+﻿@model ASPNET_MVC_CRUD.Models.Veiculo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Incluir</title>
+</head>
+<body>
+    <h1>Inclusão de Veículo</h1>
+    <div> 
+        <form action="/Home/Incluir" method="post">
+            <label>Modelo</label>
+            <input type="text" name="Modelo" /><br />
+
+            <label>Marca</label>
+            <input type="text" name="Marca" /><br />
+
+            <label>URL</label>
+            <input type="text" name="UrlFoto" /><br />
+
+            <label>Financiado?</label>
+            <input type="checkbox" name="Financiado" /><br />
+
+            <input type="submit" value="Incluir" />
+        </form>
+    </div>
+</body>
+</html>

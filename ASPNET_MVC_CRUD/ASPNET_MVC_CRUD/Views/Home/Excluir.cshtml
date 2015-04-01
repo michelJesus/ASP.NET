@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Excluir</title>
+</head>
+<body>
+    <h1>Confima exclusão do Veículo?</h1>
+    <div> 
+        <form action="/Home/Excluir" method="post">
+            <input type="hidden" name="VeiculoID" value="@Model.VeiculoID" />
+
+            <label>Modelo</label>
+            <input type="text" name="Modelo" value="@Model.Modelo" /><br />
+
+            <label>Marca</label>
+            <input type="text" name="Marca" value="@Model.Marca" /><br />
+
+            <label>URL</label>
+            <input type="text" name="UrlFoto" value="@Model.UrlFoto" /><br />
+
+            <label>Financiado?</label>
+            <input type="checkbox" name="Financiado" value="@Model.Financiado" /><br />
+
+            <input type="submit" value="Confirma" />
+        </form>
+
+        <a href="/Home/Index">Cancelar</a>
+    </div>
+</body>
+</html>
