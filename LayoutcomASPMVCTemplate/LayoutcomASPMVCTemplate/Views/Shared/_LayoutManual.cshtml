@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../Content/folha_de_estilos.css" />
+    </head>
+    <body>
+        <section class="main">
+            @RenderBody()           
+            @Html.Partial("~/Views/Shared/_Header.cshtml")
+
+            <section class="site_content">
+                @RenderSection("banner", required: false)
+                @Html.Partial("~/Views/Shared/_Aside.cshtml")
+                <section class="content">
+                    @RenderSection("contentIndex", required: false)
+                    @RenderSection("contentExamples", required: false)
+                    @RenderSection("contentAPage", required: false)
+                    @RenderSection("contentAnotherPage", required: false)
+                    @RenderSection("contentContactUs", required: false)
+                </section>
+            </section>
+            @Html.Partial("~/Views/Shared/_Footer.cshtml")
+        </section>
+</body>
+</html>
