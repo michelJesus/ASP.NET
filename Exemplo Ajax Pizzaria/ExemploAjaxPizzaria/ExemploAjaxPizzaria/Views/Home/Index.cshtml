@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Produtos</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/navbar-static-top.css" rel="stylesheet" />
+    <link href="~/Content/exemplo.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/exemplo.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" onclick="mostrarHome()">Home</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" onclick="mostrarInsumo()">Cadastro de Insumos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="painelHome">
+                    <label>Nome do produto</label>
+                    <input type="hidden" name="produtoID" value="0" />
+                    <input type="text" name="produtoNome" class="form-control" /><br />
+                    <select multiple name="insumosDoProduto" class="form-control"></select><br />
+                    <input type="button" value="Gravar" onclick="gravarProduto()" class="btn btn-primary btn-lg" /><br /><br />
+                    <table class="listaDeProdutos table table-bordered"></table>
+                </div>
+                <div class="painelInsumo">
+                    <label>Descrição do insumo</label>
+                    <input type="hidden" name="insumoID" value="0" />
+                    <input type="text" name="insumoDesc" class="form-control" /><br />
+                    <input type="button" value="Gravar" onclick="gravarInsumo()" class="btn btn-primary btn-lg" /><br /><br />
+                    <table class="listaDeInsumos table table-bordered"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
