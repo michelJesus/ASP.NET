@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Layout Manual</title>
+
+        <style>
+            #header {
+                width: 1024px;
+                height: 300px;
+                background-color: orange;
+            }
+
+            #footer {
+                width: 1024px;
+                height: 100px;
+                background-color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header"><h1>Cabeçalho</h1></div>
+        @RenderBody()
+        <div id="footer"><h2>Rodapé</h2></div>
+    </body>
+</html>

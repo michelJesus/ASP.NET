@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Layout Manual</title>
+
+        <style>
+            #header {
+                width: 1024px;
+                height: 300px;
+                background-color: green;
+            }
+
+            #footer {
+                width: 1024px;
+                height: 100px;
+                background-color: red;
+            }
+
+            #barraLateral {
+                width: 200px;
+                height: 450px;
+                background-color: silver;
+                float: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header"><h1>Cabeçalho</h1></div>
+
+        @RenderSection("barraLateral", required: false)
+
+        @RenderBody()
+
+        <div id="footer"><h2>Rodapé</h2></div>
+    </body>
+</html>
