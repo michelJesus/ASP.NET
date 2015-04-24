@@ -1,0 +1,34 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+    <form action="~/Pessoa/Create" method="post">
+        <label>Nome:</label>
+        <input type="text" name="Nome" />
+
+        <label>Sobrenome:</label>
+        <input type="text" name="Sobrenome" />
+
+        <input type="submit" value="Submit" />
+
+        <input type="submit" value="Ajax" onclick="enviarDados()" />
+    </form>
+
+    <script>
+        function enviarDados() {
+            $.post("Create", {
+                Nome: $("#Nome").val(),
+                Sobrenome: $("#Sobrenome").val()
+            }).done(function (data) {
+                alert("Json retornado: " + data);
+            });
+        }
+    </script>
+</body>
+</html>

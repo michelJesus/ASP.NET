@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Página 2</h1>
+
+    @{
+
+        string valor = Request["valor"];
+
+        string v1 = Request["v1"];
+        string v2 = Request["v2"];
+
+        int resultado = int.Parse(v1) + int.Parse(v2);
+
+        <p>O valor passado é @valor</p>
+
+        <p>O valor passado é @resultado</p>
+            
+    
+    }
+
+</body>
+</html>

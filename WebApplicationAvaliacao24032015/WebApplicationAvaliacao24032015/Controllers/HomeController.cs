@@ -18,47 +18,20 @@ namespace WebApplicationAvaliacao24032015.Controllers
         }
 
         [HttpPost]
-        public JsonResult Incluir(FormCollection colletcion)
+        public JsonResult Incluir()
         {
             string nome = Request.Form["Nome"];
-            //string ativo = Request.Form["Ativo"];
+            string ativo = Request.Form["IsAtivo"];
 
             Cliente c = new Cliente();
-            //c.IsAtivo = ativo;
             c.Nome = nome;
+            c.IsAtivo = ativo;
             
             banco.Clientes.Add(c);
             banco.SaveChanges();
 
-            return Listar();
-        }
-
-        [HttpPost]
-        public JsonResult Listar () {
             List<Cliente> lista = banco.Clientes.ToList();
             return Json(lista);
-        }
-
-        [HttpPost]
-        public JsonResult Excluir () {
-            var clienteID = Request.Form["id"];
-            Cliente cliente = banco.Clientes.Find(int.Parse(clienteID));
-
-            banco.Entry(cliente).State = System.Data.Entity.EntityState.Deleted;
-            banco.SaveChanges();
-
-            return Listar();
-        }
-
-        [HttpPost]
-        public JsonResult Editar () {
-            var clienteID = Request.Form["id"];
-            Cliente cliente = banco.Clientes.Find(int.Parse(clienteID));
-
-            banco.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
-            banco.SaveChanges();
-
-            return Listar();
         }
     }
 }

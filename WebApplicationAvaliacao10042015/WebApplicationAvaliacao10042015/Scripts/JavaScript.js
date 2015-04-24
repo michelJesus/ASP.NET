@@ -1,0 +1,4 @@
+﻿function incluir() 
+{
+    alert('Foi');
+}

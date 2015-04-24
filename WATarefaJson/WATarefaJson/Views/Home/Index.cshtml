@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/JavaScript.js"></script>
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+    <h1>Cadastro Tarefa</h1>
+
+    <form>
+        <label>Data da conclusão</label><br />
+        <input type="text" name="DataConclusao" /><br />
+
+        <br />
+
+        <label>Data da início</label><br />
+        <input type="text" name="DataInicial" /><br />
+
+        <br />
+
+        <label>Descrição</label><br />
+        <input type="text" name="Descricao" /><br />
+
+        <br />
+
+        <label>Solicitante</label><br />
+        <input type="text" name="Solicitante" /><br />
+
+        <br />
+
+        <label>Status</label><br />
+        <input type="text" name="Status" /><br />
+
+        <br />
+
+        <input type="submit" name="Create" value="Criar" onclick="Create()" />
+    </form>
+
+    <div id="divContent"></div>
+</body>
+</html>
