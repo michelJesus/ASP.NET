@@ -40,14 +40,13 @@
                 Nome: $("#Nome").val()
             }).done(function (data) {
 
-                alert("Salvo com sucesso!");
-
                 $.each(data, function (index, data) {
                     $('#table').append('<tr><td>' + data.Nome + '</td><td><input type="button" value="Editar" onclick="Editar()"/></td><td><input type="button" value="Excluir" onclick="Excluir()"/></td></tr></table>');
                     //console.log(data);
                 });
 
                 limparCampos();
+                alert("Salvo com sucesso!");
                 
                 //alert("Json retona: " + data);
             });
@@ -68,6 +67,11 @@
 
         function limparCampos() {
             $('input[name="Nome"]').val('');
+        }
+
+
+        function limparCampos() {
+            $('input[name="#Name"]').val('');
         }
     </script>
 
