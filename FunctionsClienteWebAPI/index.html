@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WEB API de Cadastro de Produtos</title>
+    <script src="jquery-1.11.2.min.js"></script><style>
+    </style>
+    <script>
+
+        function listar() {
+            $.get("http://webapi-produtos.azurewebsites.net/api/produtos/", 
+                function (listaDeProdutos) {
+                    //faz alguma coisa
+
+                    $('.listaDeProdutos').empty();
+                    $('.listaDeProdutos').append(
+                      '<tr><th>ID</th><th>Descrição</th><th>Comandos</th></tr>'
+                    );
+
+                    for (var i = 0; i < produtos.length; i++) {
+                        var produto = produtos[i];
+
+                        //Lista de produtos cadastrados
+                        $('.listaDeProdutos').append(
+                            '<tr><td>' + produto.ProdutoID + '</td>' +
+                                '<td>' + produto.Descricao + '</td>' +
+                                '<td><span><a onclick="alterar(' + produto.ProdutoID + ')" href="#">Alterar</a></span>' +
+                                ' | <span><a onclick="excluir(' + produto.Descricao + ')" href="#">Excluir</a></span></td>' +
+                            '</tr>'
+                        );
+                    }
+
+
+                }
+            );
+        }
+        
+        function getProduto() {
+            $.get("http://webapi-produtos.azurewebsites.net/api/produtos/" + ProdutoId,
+                function (produto) {
+                    //faz alguma coisa
+                }
+            );
+        }
+
+        function cadastar() {
+            $.post("http://webapi-produtos.azurewebsites.net/api/produtos/",
+                { Descricao: $(descricao).val(), Preco: $(preco).val() },
+               function (response) {
+                   //faz alguma coisa
+                   $(retorno).html(data);
+               }
+            );
+        }
+        
+        function alterar() {         
+            $.ajax({
+                method: "PUT",                
+                url: "http://webapi-produtos.azurewebsites.net/api/produtos/" + ProdutoId,
+                data: { ProdutoId : algumID, Descricao: "xxxx", Preco: 999 }
+            }).done(function (response) {
+                 //faz alguma coisa
+
+                    
+                $('input[name="produtoID"]').val(dados.produto.ProdutoID);
+                $('input[name="produtoNome"]').val(dados.produto.Nome);
+               
+
+            });         
+        }
+
+        function excluir() {
+            $.ajax({
+                method: "DELETE",
+                url: "http://webapi-produtos.azurewebsites.net/api/produtos/" + ProdutoId
+            }).done(function (response) {
+                //faz alguma coisa
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1>Cadastro de Produto</h1>
+    <label>Descrição</label>
+    <input type="text" id="descricao" />
+    <label>Preço</label>
+    <input type="text" id="preco" />
+    <label />
+    <button type="button" onclick="cadastar()">Cadastrar</button><br/><br/>
+    <button type="button" onclick="listar()">Listar</button><br/>
+    <div id="retorno"></div>
+</body>
+</html>

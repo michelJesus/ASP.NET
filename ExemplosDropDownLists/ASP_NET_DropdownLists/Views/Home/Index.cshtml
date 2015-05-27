@@ -1,0 +1,606 @@
+﻿@model ASP_NET_DropdownLists.Models.Pessoa
+
+@{
+    ViewBag.StringsNaView = new SelectList(new[]{
+        "Loiros",
+        "Ruivos",
+        "Castanhos",
+        "Pretos",
+        "Grisalhos"
+    });
+
+    ViewBag.StringsValoresNaView = new SelectList(new[]{
+       new SelectListItem{ Value = "1", Text = "Solteiro"},
+       new SelectListItem{ Value = "2", Text = "Casado"}
+    }, "Value", "Text");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DropdownLists</title>
+    <style>
+
+        h1, h2, h3, ol, ul, a
+        {
+            font-family: sans-serif;
+        }
+
+        h2
+        {
+            color: rgb(226, 128, 0);
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+
+        h3
+        { 
+            color: gray;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        pre
+        {
+            box-sizing:border-box;
+            margin-top: 0;
+            width: 100%;
+            background-color: rgb(242, 255, 159);
+            font-size: 16px;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        a, ol, ul
+        {
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        p
+        {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        r
+        {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Exemplos de DropDownList / DropDownListFor</h1> 
+
+<h2>Observações</h2>  
+<ul>
+	<li>O helper <b>Html.DropDownList</b> não requer uma <b>SelectList</b> – pode ser apenas uma lista de objetos do tipo <b>SelectListItem</b>;</li>
+	<li>Não use uma <b>SelectList</b> sem definir as propriedades <b>DataTextField</b> e <b>DataValueField</b>;</li>
+	<li>Use métodos conversores para criar a lista de <b>SelectedListItem</b> no caso de objetos fortemente tipados.</li>
+</ul>	
+
+<h2>Sumário</h2>  
+<ol>
+<li><a href="#1">Strings criadas no Helper</a></li>
+<li><a href="#2">Strings criadas na View</a></li>
+<li><a href="#3">Strings criadas na Controller</a></li>
+<li><a href="#4">Strings/valores criados no Helper</a></li> 
+<li><a href="#5">Strings/valores criados na View</a></li> 
+<li><a href="#6">Strings/valores criados na Controller</a></li> 
+<li><a href="#7">Lista de objetos tipados</a></li>  
+<li><a href="#8">Método conversor</a></li>                    
+</ol>
+
+<h2>Código fonte</h2>  
+<ul>
+<li><a href="arquivos/ExemplosDropDownLists.zip">Exemplos de DropDownLists</a></li>                
+</ul>
+
+<h2 id="1">Strings criadas no Helper</h2>  
+
+<h3>Exemplo @@Html.DropDownList(nome, lista)</h3>
+<pre>
+@Html.DropDownList("Sexo", new SelectList(new[]{"Masculino", "Feminino"}))
+
+@@Html.<r>DropDownList</r>("Sexo", new SelectList(new[]{"Masculino", "Feminino"}))
+
+&lt;select id="Sexo" name="Sexo"&gt;
+  &lt;option&gt;Masculino&lt;/option&gt;
+  &lt;option&gt;Feminino&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.DropDownList(nome, lista, option)</h3>
+<code><pre>
+@Html.DropDownList("Sexo", new SelectList(new[]{"Masculino", "Feminino"}), "Selecione")
+
+@@Html.<r>DropDownList</r>("Sexo", new SelectList(new[]{"Masculino", "Feminino"}), "Selecione")
+
+&lt;select id="Sexo" name="Sexo"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Masculino&lt;/option&gt;
+  &lt;option&gt;Feminino&lt;/option&gt;
+&lt;/select&gt;
+</pre></code> 
+
+<h3>Exemplo @@Html.DropDownListFor(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Sexo, new SelectList(new[]{"Masculino", "Feminino"}))
+
+@@Html.<r>DropDownListFor</r>(model => model.Sexo, new SelectList(new[]{"Masculino", "Feminino"}))
+
+&lt;select id="Sexo" name="Sexo"&gt;
+  &lt;option&gt;Masculino&lt;/option&gt;
+  &lt;option&gt;Feminino&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.DropDownListFor(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Sexo, new SelectList(new[]{"Masculino", "Feminino"}), "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.Sexo, new SelectList(new[]{"Masculino", "Feminino"}), "Selecione")
+
+&lt;select id="Sexo" name="Sexo"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Masculino&lt;/option&gt;
+  &lt;option&gt;Feminino&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="2">Strings criadas na View</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+@@{
+  ViewBag.StringsNaView = new SelectList(new[]{
+    "Loiros",
+    "Ruivos",
+    "Castanhos",
+    "Pretos",
+    "Grisalhos"
+  });
+}    
+</pre></code>   
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<pre>
+@Html.DropDownList("StringsNaView")
+
+@@Html.<r>DropDownList</r>("StringsNaView")
+
+&lt;select id="StringsNaView" name="StringsNaView"&gt;
+  &lt;option&gt;Loiros&lt;/option&gt;
+  &lt;option&gt;Ruivos&lt;/option&gt;
+  &lt;option&gt;Castanhos&lt;/option&gt;
+  &lt;option&gt;Pretos&lt;/option&gt;
+  &lt;option&gt;Grisalhos&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista, option)</h3>
+<pre>
+@Html.DropDownList("StringsNaView", "Selecione")
+
+@@Html.<r>DropDownList</r>("StringsNaView", "Selecione")
+
+&lt;select id="StringsNaView" name="StringsNaView"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Loiros&lt;/option&gt;
+  &lt;option&gt;Ruivos&lt;/option&gt;
+  &lt;option&gt;Castanhos&lt;/option&gt;
+  &lt;option&gt;Pretos&lt;/option&gt;
+  &lt;option&gt;Grisalhos&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Cabelos, (SelectList) ViewBag.StringsNaView)
+
+@@Html.<r>DropDownList</r>(model => model.Cabelos, (SelectList) ViewBag.StringsNaView)
+
+&lt;select id="StringsNaView" name="StringsNaView"&gt;
+  &lt;option&gt;Loiros&lt;/option&gt;
+  &lt;option&gt;Ruivos&lt;/option&gt;
+  &lt;option&gt;Castanhos&lt;/option&gt;
+  &lt;option&gt;Pretos&lt;/option&gt;
+  &lt;option&gt;Grisalhos&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Cabelos, (SelectList) ViewBag.StringsNaView, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.Cabelos, (SelectList) ViewBag.StringsNaView, "Selecione")
+
+&lt;select id="StringsNaView" name="StringsNaView"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Loiros&lt;/option&gt;
+  &lt;option&gt;Ruivos&lt;/option&gt;
+  &lt;option&gt;Castanhos&lt;/option&gt;
+  &lt;option&gt;Pretos&lt;/option&gt;
+  &lt;option&gt;Grisalhos&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="3">Strings criadas na Controller</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+public ActionResult Index()
+{
+   //var stringsNaController = new[] { "Baixa", "Média", "Alta"};
+   var stringsNaController = new List&lt;string&gt; { "Baixa", "Média", "Alta" };
+   ViewBag.StringsNaController = new SelectList(stringsNaController);
+   return View();
+}
+</pre></code>  
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<code><pre>
+@Html.DropDownList("StringsNaController")
+
+@@Html.<r>DropDownList</r>("StringsNaController")
+
+&lt;select id="StringsNaController" name="StringsNaController"&gt;
+  &lt;option&gt;Baixa&lt;/option&gt;
+  &lt;option&gt;Média&lt;/option&gt;
+  &lt;option&gt;Alta&lt;/option&gt;
+&lt;/select&gt;
+</pre></code> 
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista, option)</h3>
+<code><pre>
+@Html.DropDownList("StringsNaController", "Selecione")
+
+@@Html.<r>DropDownList</r>("StringsNaController", "Selecione")
+
+&lt;select id="StringsNaController" name="StringsNaController"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Baixa&lt;/option&gt;
+  &lt;option&gt;Média&lt;/option&gt;
+  &lt;option&gt;Alta&lt;/option&gt;
+&lt;/select&gt;
+</pre></code> 
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Estatura, (SelectList)ViewBag.StringsNaController)
+
+@@Html.<r>DropDownListFor</r>(model => model.Estatura, (SelectList)ViewBag.StringsNaController)
+
+&lt;select id="Estatura" name="Estatura"&gt;
+  &lt;option&gt;Baixa&lt;/option&gt;
+  &lt;option&gt;Média&lt;/option&gt;
+  &lt;option&gt;Alta&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Estatura, (SelectList)ViewBag.StringsNaController, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.Estatura, (SelectList)ViewBag.StringsNaController, "Selecione")
+
+&lt;select id="Estatura" name="Estatura"&gt;
+  &lt;option&gt;Selecione&lt;/option&gt;
+  &lt;option&gt;Baixa&lt;/option&gt;
+  &lt;option&gt;Média&lt;/option&gt;
+  &lt;option&gt;Alta&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="4">Strings/valores criados no Helper</h2>  
+<h3>Exemplo @@Html.<r>DropDownList</r>(nome, lista)</h3>
+<pre>
+@Html.DropDownList("EstadoCivil", new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+})
+
+@@Html.<r>DropDownList</r>("EstadoCivil", new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+})
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownList</r>(nome, lista, option)</h3>
+<pre>
+@Html.DropDownList("EstadoCivil", new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+}, "Selecione")
+
+@@Html.<r>DropDownList</r>("EstadoCivil", new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+}, "Selecione")
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+})
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+})
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+}, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+}, "Selecione")
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="5">Strings/valores criados na View</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+ViewBag.StringsValoresNaView = new SelectList(new[]{
+  new SelectListItem{ Value = "1", Text = "Solteiro"},
+  new SelectListItem{ Value = "2", Text = "Casado"}
+}, "Value", "Text");  
+</pre></code>   
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<pre>
+@Html.DropDownList("StringsValoresNaView")
+
+@@Html.<r>DropDownList</r>("StringsValoresNaView")
+
+&lt;select id="StringsValoresNaView" name="StringsValoresNaView"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista, option)</h3>
+<pre>
+@Html.DropDownList("StringsValoresNaView", "Selecione")
+
+@@Html.<r>DropDownList</r>("StringsValoresNaView", "Selecione")
+
+&lt;select id="StringsValoresNaView" name="StringsValoresNaView"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView)
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView)
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView, "Selecione")
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="6">Strings/valores criados na Controller</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+public ActionResult Index()
+{
+   var stringsValoresNaController = new[]{
+      new SelectListItem{ Value = "1", Text = "Solteiro"},
+      new SelectListItem{ Value = "2", Text = "Casado"}
+   };
+
+   ViewBag.StringsValoresNaController = new SelectList(
+           stringsValoresNaController, "Value", "Text");
+   return View();
+}      
+</pre></code>   
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<pre>
+@Html.DropDownList("StringsValoresNaController")
+
+@@Html.<r>DropDownList</r>("StringsValoresNaController")
+
+&lt;select id="StringsValoresNaController" name="StringsValoresNaController"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista, option)</h3>
+<pre>
+@Html.DropDownList("StringsValoresNaController", "Selecione")
+
+@@Html.<r>DropDownList</r>("StringsValoresNaController", "Selecione")
+
+&lt;select id="StringsValoresNaController" name="StringsValoresNaController"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView)
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView)
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.EstadoCivil, (SelectList) ViewBag.StringsValoresNaView, "Selecione")
+
+&lt;select id="EstadoCivil" name="EstadoCivil"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Solteiro&lt;/option&gt;
+   &lt;option value="2"&gt;Casado&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="7">Lista de objetos tipados</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+public class Habito
+{
+   public int Id { get; set; }
+   public string Descricao { get; set; }
+}
+
+public ActionResult Index()
+{
+   List&lt;Habito&gt; listaDeHabitos = new List&lt;Habito&gt;();
+   listaDeHabitos.Add(new Habito() { Id = 1, Descricao = "Caminhar" });
+   listaDeHabitos.Add(new Habito() { Id = 2, Descricao = "Ler" });
+   listaDeHabitos.Add(new Habito() { Id = 3, Descricao = "Estudar" });
+
+   ViewBag.Habitos = new SelectList(listaDeHabitos, "Id", "Descricao");
+   return View();
+}      
+</pre></code>   
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<pre>
+@Html.DropDownList("Habitos")
+
+@@Html.<r>DropDownList</r>("Habitos")
+
+&lt;select id="Habitos" name="Habitos"&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista, option)</h3>
+<pre>
+@Html.DropDownList("Habitos", "Selecione")
+
+@@Html.<r>DropDownList</r>("Habitos", "Selecione")
+
+&lt;select id="Habitos" name="Habitos"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, nomeDaLista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Habito.Id, (SelectList) ViewBag.Habitos)
+
+@@Html.<r>DropDownListFor</r>(model => model.Habito.Id, (SelectList) ViewBag.Habitos)
+
+&lt;select id="Habito_Id" name="Habito.Id"&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, nomeDaLista, option)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Habito.Id, (SelectList) ViewBag.Habitos, "Selecione")
+
+@@Html.<r>DropDownListFor</r>(model => model.Habito.Id, (SelectList) ViewBag.Habitos, "Selecione")
+
+&lt;select id="Habito_Id" name="Habito.Id"&gt;
+   &lt;option value=""&gt;Selecione&lt;/option&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<h2 id="8">Método conversor</h2>
+<h3>Origem dos dados</h3>
+<code><pre>
+public class Habito
+{
+   public int Id { get; set; }
+   public string Descricao { get; set; }
+}
+
+public ActionResult Index()
+{
+   Contexto ctx = new Contexto();
+   ViewBag.OutrosHabitos = ToSelectListItems(ctx.Habitos, 1);
+   return View();
+}  
+ 
+public static IEnumerable&lt;SelectListItem&gt; ToSelectListItems(
+              this IEnumerable&lt;Habito&gt; habitos, int selectedId)
+{
+    return habitos.OrderBy(habito => habito.Descricao)
+        .Select(habito => new SelectListItem {
+            Selected = (habito.Id == selectedId),
+            Value = habito.Id.ToString(),
+            Text = habito.Descricao
+        });
+}           
+</pre></code>   
+<h3>Exemplo @@Html.<r>DropDownList</r>(nomeDaLista)</h3>
+<pre>
+@Html.DropDownList("OutrosHabitos")
+
+@@Html.<r>DropDownList</r>("OutrosHabitos")
+
+&lt;select id="Habitos" name="Habitos"&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<h3>Exemplo @@Html.<r>DropDownListFor</r>(expressaoLambda, lista)</h3>
+<pre>
+@Html.DropDownListFor(model => model.Habito.Id, new SelectList(ViewBag.OutrosHabitos, "Value", "Text"))
+
+@@Html.<r>DropDownListFor</r>(model => model.Habito.Id, new SelectList(ViewBag.OutrosHabitos, "Value", "Text"))
+
+&lt;select id="Habito_Id" name="Habito.Id"&gt;
+   &lt;option value="1"&gt;Caminhar&lt;/option&gt;
+   &lt;option value="3"&gt;Estudar&lt;/option&gt;
+   &lt;option value="2"&gt;Ler&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+<p>Todos os direitos reservados. Prof. Geucimar Brilhador, 2014.</p>
+<p>Parte traduzida de <b>Drop-down Lists and ASP.NET MVC</b> por K. Scott Allen, 2010.</p>
+</body>
+</html>

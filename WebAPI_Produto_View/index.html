@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Web API de Cadastro de Produto</title>
+	<script type="text/javascript" src="JavaScript/jquery-1.11.2.min.js"></script>
+
+	<script>
+		function cadastrar() {
+			$.post("http://localhost:9334/api/Produtos", 
+				{	
+					Descricao: $(descricao).val(),
+					Preco: $(preco).val()
+				},
+				function (data) {
+					$(retorno).html(data);
+					//limpar();
+				}
+			);
+		}
+
+
+		function limpar() {
+		    $('input[name="descricao"]').val('');
+		    $('input[name="preco"]').val('');
+			$('input[name="ProdutoId"]').val('0');
+			$.get(
+		       'http://localhost:9334/api/Produtos/'
+		       
+		    ).done(function (produtos) {
+		        listar(produtos);
+		    });
+			
+		}
+
+
+
+	</script>
+</head>
+<body>
+	<h1>Cadastro de Produto</h1>
+	
+	<label>Descrição</label>
+	<input type="text" id="descricao" name="descricao" />
+
+	<label>Preço</label>
+	<input type="text" id="preco" name="preco" />
+
+	<button type="button" id="POST" name="preco" onclick="cadastrar()">Cadastrar</button>
+	<button type="button" id="Alterar" name="preco" onclick="alterar()">Listar</button>
+
+	<div id="retorno"></div>
+	
+</body>
+</html>

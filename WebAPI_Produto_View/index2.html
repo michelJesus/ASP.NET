@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Web API de Cadastro de Produto</title>
+	<!-- script type="text/javascript" src="JavaScript/jquery-1.11.2.min.js"></script -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	<script>
+		function cadastrar() {
+			$.post("http://webapi-produtos.azurewebsites.net/api/produtos", 
+				{	
+					Descricao: $(descricao).val(),
+					Preco: $(preco).val()
+				},
+				function (data) {
+					$(retorno).html(data);
+				}
+			);
+		}
+
+        function listar() {
+
+        	alert('OI');
+    
+		    $('.listaDeProdutos').empty();
+		    $('.listaDeProdutos').append('<tr><th>ID</th><th>Descrição</th><th>Preço</th><th>Operação</th></tr>');
+		    
+		    $.get("http://webapi-pessoas.azurewebsites.net/api/produtos", 
+		        function (data) {
+		            $.each(data, function (i, produto) {
+		                var linha = '<tr><td>' + produto.ProdutoId + 
+		                            '</td><td>' + produto.Descricao + 
+		                            '</td><td>' + produto.Preco + 
+		                            '</td><td><a href="#" onclick="alterar('+ produto.ProdutoId +')">Alterar</a> | <a href="#" onclick="excluir(' + produto.ProdutoId +')">Excluir</td></tr>';
+		                $(tabelaDeProdutos).append(linha);
+		            })
+		        }
+		    );
+		}
+	</script>
+</head>
+<body>
+	<h1>Cadastro de Produto</h1>
+	
+	<label>Descrição</label> <br />
+	<input type="text" id="descricao" /> <br />
+
+	<label>Preço</label> <br />
+	<input type="text" id="preco" /> <br /> <br />
+
+	<button type="button" id="post" onclick="cadastrar()">Cadastrar</button> <br />
+
+	<div id="retorno"></div> <br />
+
+	<hr />
+
+	
+	<h1>Listar Produto</h1> <br />
+	<button type="button" id="post" onclick="listar()">Listar</button>
+	
+</body>
+</html>
